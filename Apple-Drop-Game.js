@@ -4,8 +4,9 @@
 
 function setup() {
   appleFallX = random(400);
-  appleX = random(400);
+  appleX = random(width);
   appleY = 0;
+  appleFalling = false;
   createCanvas(400, 400);
   ellipseMode(CORNER);
   angleMode(DEGREES);
@@ -21,7 +22,15 @@ function draw() {
 
   //draws apples that fall at random speeds
   drawApple(appleX, appleY, 1);
-  appleY = appleY + random(3, 8);
+  if(appleFalling){
+    appleY = appleY + random(3, 8);
+    
+    if(appleY >= 385){
+      appleFalling = false
+      appleY = 0
+      appleX = random(width)
+    }
+  }
 
   // draws clouds
   drawClouds(-50, -80, 1);
@@ -75,4 +84,8 @@ function drawApple(appleX, appleY, appleSize) {
   fill("brown");
   rect(9, -4, 2, 4);
   pop();
+}
+
+function mousePressed(){
+  appleFalling = true
 }
