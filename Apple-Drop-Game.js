@@ -3,33 +3,41 @@
 //In question 1 I created the bucket, floor and clouds
 
 function setup() {
+  appleFallX = random(400);
+  appleX = random(400);
+  appleY = 0;
   createCanvas(400, 400);
+  ellipseMode(CORNER);
+  angleMode(DEGREES);
 }
 
 function draw() {
-  //colors background 
+  //colors background
   background("lightblue");
-  
+
   //draws stone street
-  fill("lightgray")
+  fill("lightgray");
   rect(0, 355, 400, 55);
-  
-  //draws clouds
-  drawClouds(0, -30, 1);
-  
+
+  //draws apples that fall at random speeds
+  drawApple(appleX, appleY, 1);
+  appleY = appleY + random(3, 8);
+
+  // draws clouds
+  drawClouds(-50, -80, 1);
+
   //draws bucket
   drawBucket(mouseX - 25, 325, 1, "tan", "black");
-  
+
   //bucket glows gold when mouse is clicked
-  if (mouseIsPressed){
+  if (mouseIsPressed) {
     drawBucket(mouseX - 25, 325, 1, "gold", "darkgoldenrod");
   }
-  
 }
 
 //creates a bucket that can be moved on the X axis
 //can be moved and size changed when function is called
-function drawBucket(bucketX, bucketY, bucketSize, bucketColor, bucketBarColor){
+function drawBucket(bucketX, bucketY, bucketSize, bucketColor, bucketBarColor) {
   push();
   translate(bucketX, bucketY);
   scale(bucketSize);
@@ -43,11 +51,11 @@ function drawBucket(bucketX, bucketY, bucketSize, bucketColor, bucketBarColor){
 
 //draws clouds on the top of the screen
 //can be moved and size changed when function is called
-function drawClouds (cloudX, cloudY, cloudSize){
+function drawClouds(cloudX, cloudY, cloudSize) {
   push();
   translate(cloudX, cloudY);
   scale(cloudSize);
-  fill("white")
+  fill("white");
   noStroke();
   ellipse(30, 30, 100);
   ellipse(100, 30, 100);
@@ -55,5 +63,16 @@ function drawClouds (cloudX, cloudY, cloudSize){
   ellipse(240, 30, 100);
   ellipse(310, 30, 100);
   ellipse(380, 30, 100);
+  pop();
+}
+
+function drawApple(appleX, appleY, appleSize) {
+  push();
+  translate(appleX, appleY, appleSize);
+  scale(appleSize);
+  fill("red");
+  ellipse(0, 0, 20);
+  fill("brown");
+  rect(9, -4, 2, 4);
   pop();
 }
